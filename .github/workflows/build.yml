@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-      - tatsuya
-      - mathieu
   pull_request:
     types: [opened, synchronize, reopened]
 

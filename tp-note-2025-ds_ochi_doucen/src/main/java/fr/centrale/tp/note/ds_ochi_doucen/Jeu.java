@@ -1,5 +1,9 @@
 package fr.centrale.tp.note.ds_ochi_doucen;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  * Classe représentant le jeu principal.
  *
@@ -14,7 +18,7 @@ public class Jeu {
     public Jeu(String nomJoueur1, String nomJoueur2) {
         this.plateau = new Plateau();
         this.joueur1 = new Joueur(nomJoueur1, 1); // 1: blanc
-        this.joueur2 = new Joueur(nomJoueur2, 0); // 0: noir
+        this.joueur2 = new Joueur(nomJoueur2, 2); // 0: noir
         joueur1.setTour(true); // Le joueur 1 commence
         joueur2.setTour(false);
     }
@@ -134,7 +138,15 @@ public class Jeu {
      */
     private int demanderEntree(String message) {
         System.out.print(message);
-        return 0; // Valeur par défaut pour l'exemple
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        int choix = 0;
+        try {
+            choix = Integer.parseInt(br.readLine());
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Entree invalide.");
+        }
+        return choix;
     }
 
     // Getters et Setters

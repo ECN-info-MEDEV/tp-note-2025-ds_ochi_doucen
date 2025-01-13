@@ -7,8 +7,8 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>22</maven.compiler.source>
-        <maven.compiler.target>22</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>fr.centrale.tp.note.ds_ochi_doucen.TpNote2025Ds_ochi_doucen</exec.mainClass>
         <sonar.projectKey>ECN-info-MEDEV_tp-note-2025-ds_ochi_doucen</sonar.projectKey>
         <sonar.organization>ecn-info-medev</sonar.organization>

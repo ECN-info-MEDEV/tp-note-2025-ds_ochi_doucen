@@ -150,6 +150,11 @@ public class Plateau {
         System.out.println("");
     }
     
+    /**
+     * fonction qui calcule le score d'un joueur donné
+     * @param joueur
+     * @return 
+     */
     public int getScore(Joueur joueur){
         return 0;
     }

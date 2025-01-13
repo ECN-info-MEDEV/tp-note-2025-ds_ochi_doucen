@@ -27,7 +27,8 @@ public class Plateau {
         cases[3][3] = new Case(3,3,1);
         cases[4][4] = new Case(4,4,1);
         cases[3][4] = new Case(3,4,2);
-        cases[4][3] = new Case(4,3,2);        
+        cases[4][3] = new Case(4,3,2);  
+        nbCasesRemplies = 4;
     }
     
     

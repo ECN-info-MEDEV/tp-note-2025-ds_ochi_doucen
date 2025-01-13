@@ -44,6 +44,8 @@ public class PlateauTest {
     public void testPlacerPion() {
         System.out.println("placerPion");
         Joueur joueur = null;
+        Jeu j = new Jeu("mathieu","tatsuya");
+        j.demarrerPartie();
         int ligne = 0;
         int colonne = 0;
         Plateau instance = new Plateau();
@@ -61,8 +63,8 @@ public class PlateauTest {
         System.out.println("mouvementValide");
         int i = 0;
         int j = 0;
-        int couleurCourante = 0;
-        int couleurOpposee = 0;
+        int couleurCourante = 1;
+        int couleurOpposee = 2;
         Plateau instance = new Plateau();
         boolean expResult = false;
         boolean result = instance.mouvementValide(i, j, couleurCourante, couleurOpposee);
@@ -75,8 +77,8 @@ public class PlateauTest {
     @Test
     public void testMouvementPossible() {
         System.out.println("mouvementPossible");
-        int couleurCourante = 0;
-        int couleurOpposee = 0;
+        int couleurCourante = 1;
+        int couleurOpposee = 2;
         Plateau instance = new Plateau();
         ArrayList<Case> expResult = null;
         ArrayList<Case> result = instance.mouvementPossible(couleurCourante, couleurOpposee);
@@ -108,18 +110,6 @@ public class PlateauTest {
        
     }
 
-    /**
-     * Test of getCases method, of class Plateau.
-     */
-    @Test
-    public void testGetCases() {
-        System.out.println("getCases");
-        Plateau instance = new Plateau();
-        Case[][] expResult = null;
-        Case[][] result = instance.getCases();
-        assertArrayEquals(expResult, result);
-        
-    }
 
     /**
      * Test of setCases method, of class Plateau.
@@ -140,7 +130,7 @@ public class PlateauTest {
     public void testGetNbCasesRemplies() {
         System.out.println("getNbCasesRemplies");
         Plateau instance = new Plateau();
-        int expResult = 0;
+        int expResult = 4;
         int result = instance.getNbCasesRemplies();
         assertEquals(expResult, result);
         

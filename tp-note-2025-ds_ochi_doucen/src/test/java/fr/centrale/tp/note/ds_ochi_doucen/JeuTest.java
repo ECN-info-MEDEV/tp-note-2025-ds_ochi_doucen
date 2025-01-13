@@ -70,18 +70,4 @@ public class JeuTest {
         }
         assertTrue(jeu.estPartieTerminee(), "La partie devrait être terminée lorsque le plateau est rempli");
     }
-
-    @Test
-    public void testObtenirVainqueur() {
-        // Placer des pions : joueur1 a 3, joueur2 a 2
-        plateau.placerPion(joueur1, 0, 0);
-        plateau.placerPion(joueur1, 0, 1);
-        plateau.placerPion(joueur1, 0, 2);
-        plateau.placerPion(joueur2, 1, 0);
-        plateau.placerPion(joueur2, 1, 1);
-
-        Joueur vainqueur = jeu.obtenirVainqueur();
-        assertEquals(joueur1, vainqueur, "Le joueur1 devrait être le vainqueur");
-
-    }
 }

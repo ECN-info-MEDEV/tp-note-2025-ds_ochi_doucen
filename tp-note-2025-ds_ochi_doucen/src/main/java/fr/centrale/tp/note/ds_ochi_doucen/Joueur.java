@@ -13,6 +13,11 @@ public class Joueur {
     
     //méthodes
 
+    public Joueur(String nom, int couleur){
+       this.nom = nom;
+       this.couleur = couleur;
+    
+    }
     public String getNom() {
         return nom;
     }

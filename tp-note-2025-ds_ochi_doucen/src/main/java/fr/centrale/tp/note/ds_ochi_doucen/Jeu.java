@@ -2,55 +2,83 @@ package fr.centrale.tp.note.ds_ochi_doucen;
 
 /**
  * Classe représentant le jeu principal.
- * 
+ *
  * @author mathi & woota
  */
 public class Jeu {
 
-    // Attributs
     private Plateau plateau;
     private Joueur joueur1;
     private Joueur joueur2;
 
-    // Constructeur
     public Jeu(String nomJoueur1, String nomJoueur2) {
         this.plateau = new Plateau();
-        this.joueur1 = new Joueur(nomJoueur1, 0); 
-        this.joueur2 = new Joueur(nomJoueur2, 1); 
+        this.joueur1 = new Joueur(nomJoueur1, 1); // 1: blanc
+        this.joueur2 = new Joueur(nomJoueur2, 0); // 0: noir
+        joueur1.setTour(true); // Le joueur 1 commence
+        joueur2.setTour(false);
     }
 
-    // Méthodes
-
     /**
-     * Démarre la partie et initialise les composants.
+     * Démarre la partie en boucle jusqu'à ce qu'une condition de fin soit
+     * remplie.
      */
     public void demarrerPartie() {
-        System.out.println("La partie commence entre " + joueur1.getNom() + " (Noir) et " + joueur2.getNom() + " (Blanc).");
-        plateau.afficherPlateau();
-        joueur1.setTour(true); // Le joueur 1 commence
+        System.out.println("Début de la partie !");
+        while (!estPartieTerminee()) {
+            tourDeJeu();
+        }
+        afficherResultat();
     }
 
     /**
-     * Gère les tours des joueurs jusqu'à la fin de la partie.
+     * Gère un tour de jeu pour le joueur actuel.
      */
     public void tourDeJeu() {
+        Joueur joueurActuel = getJoueurActuel();
+        Joueur joueurOppose = getJoueurOppose();
 
-        while (!estPartieTerminee()) {
-            if (joueur1.isTour()) {
-                System.out.println(joueur1.getNom() + ", à vous de jouer.");
-                // Logique pour le tour du joueur 1
-                joueur1.setTour(false);
-                joueur2.setTour(true);
-            } else {
-                System.out.println(joueur2.getNom() + ", à vous de jouer.");
-                // Logique pour le tour du joueur 2
-                joueur1.setTour(true);
-                joueur2.setTour(false);
+        System.out.println(joueurActuel.getNom() + ", à vous de jouer.");
+
+        plateau.afficherPlateau();
+
+        boolean mouvementValide = false;
+        while (!mouvementValide) {
+            int ligne = demanderEntree("Entrez la ligne : ");
+            int colonne = demanderEntree("Entrez la colonne : ");
+
+            if (!plateau.mouvementValide(ligne, colonne, joueurActuel.getCouleur(), joueurOppose.getCouleur())) {
+                System.out.println("Mouvement invalide, essayez à nouveau.");
             }
-
-            plateau.afficherPlateau();
         }
 
+        changerTour();
+    }
+
+    /**
+     * Vérifie si la partie est terminée.
+     *
+     * @return true si la partie est terminée, false sinon.
+     */
+    public boolean estPartieTerminee() {
+        if (plateau.getNbCasesRemplies() >= 64) {
+            return true;
+        }
+
+        boolean joueur1Mouvements = plateau.mouvementPossible(joueur1.getCouleur(), joueur2.getCouleur()).size() > 0;
+        boolean joueur2Mouvements = plateau.mouvementPossible(joueur2.getCouleur(), joueur1.getCouleur()).size() > 0;
+
+        if (!joueur1Mouvements && !joueur2Mouvements) {
+            return true; 
+        }
+        
+        return false;
+    }
+
+    /**
+     * Affiche le résultat de la partie.
+     */
+    private void afficherResultat() {
         Joueur vainqueur = obtenirVainqueur();
         if (vainqueur != null) {
             System.out.println("Le vainqueur est : " + vainqueur.getNom());
@@ -60,23 +88,11 @@ public class Jeu {
     }
 
     /**
-     * Vérifie si la partie est terminée.
-     * @return true si la partie est terminée, sinon false
-     */
-    public boolean estPartieTerminee() {
-    // Si toutes les cases sont remplies, la partie est terminée
-    if (this.plateau.getNbCasesRemplies() >= 60 || this.plateau.mouvementPossibles().isEmpty()) return true;
-   
-    else return false;
-}
-
-
-    /**
-     * Détermine le vainqueur de la partie.
-     * @return le joueur gagnant ou null en cas de match nul
+     * Obtient le joueur ayant le score le plus élevé.
+     *
+     * @return Le joueur vainqueur ou null en cas d'égalité.
      */
     public Joueur obtenirVainqueur() {
-        
         int scoreJoueur1 = plateau.getScore(joueur1);
         int scoreJoueur2 = plateau.getScore(joueur2);
 
@@ -87,8 +103,62 @@ public class Jeu {
         } else {
             return null; // Match nul
         }
-      
+    }
+
+    /**
+     * Change le tour entre les deux joueurs.
+     */
+    private void changerTour() {
+        joueur1.setTour(!joueur1.isTour());
+        joueur2.setTour(!joueur2.isTour());
+    }
+
+    /**
+     * Obtient le joueur dont c'est le tour.
+     *
+     * @return Le joueur actuel.
+     */
+    private Joueur getJoueurActuel() {
+        return joueur1.isTour() ? joueur1 : joueur2;
+    }
+
+    private Joueur getJoueurOppose() {
+        return joueur1.isTour() ? joueur2 : joueur1;
+    }
+
+    /**
+     * Demande une entrée utilisateur et retourne sa valeur.
+     *
+     * @param message Le message à afficher à l'utilisateur.
+     * @return La valeur entrée par l'utilisateur.
+     */
+    private int demanderEntree(String message) {
+        System.out.print(message);
+        return 0; // Valeur par défaut pour l'exemple
+    }
+
+    // Getters et Setters
+    public Plateau getPlateau() {
+        return plateau;
+    }
+
+    public void setPlateau(Plateau plateau) {
+        this.plateau = plateau;
+    }
+
+    public Joueur getJoueur1() {
+        return joueur1;
+    }
+
+    public void setJoueur1(Joueur joueur1) {
+        this.joueur1 = joueur1;
+    }
+
+    public Joueur getJoueur2() {
+        return joueur2;
+    }
+
+    public void setJoueur2(Joueur joueur2) {
+        this.joueur2 = joueur2;
     }
 }
-
-    

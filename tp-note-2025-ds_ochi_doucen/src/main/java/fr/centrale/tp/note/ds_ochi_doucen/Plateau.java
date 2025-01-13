@@ -145,7 +145,7 @@ public class Plateau {
         System.out.println("");
     }
     
-    public int getScore(int couleurCourante){
+    public int getScore(Joueur joueur){
         return 0;
     }
     

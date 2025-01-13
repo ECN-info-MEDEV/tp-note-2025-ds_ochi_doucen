@@ -6,7 +6,7 @@ package fr.centrale.tp.note.ds_ochi_doucen;
 
 /**
  *
- * @author woota
+ * @author woota & mathi
  */
 public class TpNote2025Ds_ochi_doucen {
 

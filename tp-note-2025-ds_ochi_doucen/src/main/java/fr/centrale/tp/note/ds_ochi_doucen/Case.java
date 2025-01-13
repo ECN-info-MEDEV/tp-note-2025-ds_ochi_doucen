@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fr.centrale.tp.note.ds_ochi_doucen;
 
 /**
- *
- * @author mathi
+ * Classe qui représente une case du plateau de jeu
+ * @author mathi & woota
  */
 public class Case {
     
@@ -16,32 +12,62 @@ public class Case {
     int etat;
     
     //méthodes
+    /**
+     * Constructeur défaut
+     * @param l
+     * @param c
+     * @param e 
+     */
     public Case(int l, int c, int e){
         ligne = l;
         colonne = c;
         etat = e;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int getLigne() {
         return ligne;
     }
-
+    
+    /**
+     * 
+     * @param ligne 
+     */
     public void setLigne(int ligne) {
         this.ligne = ligne;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public int getColonne() {
         return colonne;
     }
-
+    
+    /**
+     * 
+     * @param colonne 
+     */
     public void setColonne(int colonne) {
         this.colonne = colonne;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public int getEtat() {
         return etat;
     }
-
+    
+    /**
+     * 
+     * @param etat 
+     */
     public void setEtat(int etat) {
         this.etat = etat;
     }    

@@ -10,11 +10,18 @@ import java.io.InputStreamReader;
  * @author mathi & woota
  */
 public class Jeu {
-
+    
+    //attributs
     private Plateau plateau;
     private Joueur joueur1;
     private Joueur joueur2;
-
+    
+    //méthodes
+    /**
+     * Constructeur
+     * @param nomJoueur1
+     * @param nomJoueur2 
+     */
     public Jeu(String nomJoueur1, String nomJoueur2) {
         this.plateau = new Plateau();
         this.joueur1 = new Joueur(nomJoueur1, 1); // 1: blanc
@@ -24,7 +31,7 @@ public class Jeu {
     }
 
     /**
-     * Démarre la partie en boucle jusqu'à ce qu'une condition de fin soit
+     * Démarre la boucle de jeu jusqu'à ce qu'une condition de fin soit
      * remplie.
      */
     public void demarrerPartie() {
@@ -125,7 +132,12 @@ public class Jeu {
     private Joueur getJoueurActuel() {
         return joueur1.isTour() ? joueur1 : joueur2;
     }
-
+    
+    /**
+     * Obtient le joueur dont le tour est fini.
+     * 
+     * @return 
+     */
     private Joueur getJoueurOppose() {
         return joueur1.isTour() ? joueur2 : joueur1;
     }
@@ -150,26 +162,50 @@ public class Jeu {
     }
 
     // Getters et Setters
+    /**
+     * 
+     * @return 
+     */
     public Plateau getPlateau() {
         return plateau;
     }
-
+    
+    /**
+     * 
+     * @param plateau 
+     */
     public void setPlateau(Plateau plateau) {
         this.plateau = plateau;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public Joueur getJoueur1() {
         return joueur1;
     }
-
+    
+    /**
+     * 
+     * @param joueur1 
+     */
     public void setJoueur1(Joueur joueur1) {
         this.joueur1 = joueur1;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public Joueur getJoueur2() {
         return joueur2;
     }
-
+    
+    /**
+     * 
+     * @param joueur2 
+     */
     public void setJoueur2(Joueur joueur2) {
         this.joueur2 = joueur2;
     }

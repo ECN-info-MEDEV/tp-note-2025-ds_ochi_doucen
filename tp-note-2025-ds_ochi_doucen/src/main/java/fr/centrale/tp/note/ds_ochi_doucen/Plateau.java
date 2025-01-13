@@ -1,5 +1,7 @@
 package fr.centrale.tp.note.ds_ochi_doucen;
 
+import java.util.ArrayList;
+
 /**
  * Classe qui représente un plateau de jeu
  * @author mathi & woota
@@ -7,7 +9,7 @@ package fr.centrale.tp.note.ds_ochi_doucen;
 public class Plateau {
 
     //attributs
-    private Cases[][] cases;
+    private Case[][] cases;
     private int nbCasesRemplies;
 
     //méthodes
@@ -15,10 +17,10 @@ public class Plateau {
      * Constructeur par défaut
      */
     public Plateau() {
-        cases = new Cases[8][8];
+        cases = new Case[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                cases[i][j].setEtat(0);
+                cases[i][j] = new Case(i,j,0);
             }
         }
     }
@@ -40,7 +42,74 @@ public class Plateau {
         }
     }
     
-    public 
+    /**
+     * Fonction pour verifier si un joueur peut jouer sur une case donnée
+     * @param i
+     * @param j
+     * @param couleurCourante
+     * @param couleurOpposee
+     * @return 
+     */
+    public boolean mouvementValide(int i, int j, int couleurCourante, int couleurOpposee){
+        int ligne;
+        int colonne;
+        boolean valide = false;
+        
+        //verif sud
+        ligne = i;
+        colonne = j;
+        while ((ligne < 7) && (cases[ligne][colonne].getEtat() == couleurOpposee)){
+            ligne ++;
+        }
+        if (cases[ligne][colonne].getEtat() == couleurCourante){
+            valide = true;
+        }
+        
+        //verif nord
+        ligne = i;
+        colonne = j;
+        while ((ligne > 1) && (cases[ligne][colonne].getEtat() == couleurOpposee)){
+            ligne --;
+        }
+        if (cases[ligne][colonne].getEtat() == couleurCourante){
+            valide = true;
+        }
+        
+        //verif est
+        ligne = i;
+        colonne = j;
+        while ((colonne < 7) && (cases[ligne][colonne].getEtat() == couleurOpposee)){
+            colonne ++;
+        }
+        if (cases[ligne][colonne].getEtat() == couleurCourante){
+            valide = true;
+        }
+        
+        //verif ouest
+        ligne = i;
+        colonne = j;
+        while ((colonne > 1) && (cases[ligne][colonne].getEtat() == couleurOpposee)){
+            colonne --;
+        }
+        if (cases[ligne][colonne].getEtat() == couleurCourante){
+            valide = true;
+        }
+        return valide;
+    }
+    
+    
+    public ArrayList<Case> mouvementPossible(int couleurCourante, int couleurOpposee){
+        ArrayList<Case> res = new ArrayList<>();
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                if (mouvementValide(i,j,couleurCourante,couleurOpposee)){
+                    res.add(cases[i][j]);
+                }
+            }
+        }
+        return res;
+    }
+    
     
     /**
      * Fonction pour afficher le plateau
@@ -68,7 +137,7 @@ public class Plateau {
      * 
      * @return 
      */
-    public int[][] getCases() {
+    public Case[][] getCases() {
         return cases;
     }
     
@@ -76,7 +145,7 @@ public class Plateau {
      * 
      * @param cases 
      */
-    public void setCases(int[][] cases) {
+    public void setCases(Case[][] cases) {
         this.cases = cases;
     }
     

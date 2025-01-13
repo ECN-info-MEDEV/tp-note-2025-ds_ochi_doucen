@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="tp-note-2025-ds_ochi_doucen" default="default" basedir=".">
+	<description>
+		Processus automatisé de construction, test, création de JAR et génération de documentation pour un projet structuré avec Maven.
+	</description>
+
+	
+	<!-- Emplacements du code source principal et des tests selon la structure Maven -->
+	<property name="src.dir"       value="src/main/java"/>
+	<property name="test.dir"      value="src/test/java"/>
+
+	<!-- Définition des dossiers de sortie des fichiers compilés -->
+	<property name="build.dir"     value="build"/>
+	<property name="classes.dir"   value="${build.dir}/classes"/>
+	<property name="test.classes.dir" value="${build.dir}/test-classes"/>
+
+	<!-- Définition des emplacements des fichiers JAR et de la documentation -->
+	<property name="jar.dir"       value="${build.dir}/jar"/>
+	<property name="doc.dir"       value="${build.dir}/doc"/>
+	<property name="report.dir"    value="${build.dir}/reports"/>
+	<property name="jar.name"      value="MyProject.jar"/>
+
+	<!-- Emplacement de la bibliothèque JUnit 5 -->
+	<!-- Exemple : lib/junit-platform-console-standalone-1.10.2.jar -->
+	<property name="junit.jar"     value="lib/junit-platform-console-standalone-1.10.2.jar"/>
+
+	<!-- 
+        ==============================
+         2. Vérification des dossiers requis
+        ==============================
+        Arrête le processus si src/main/java est absent.
+        Les tests dans src/test/java sont facultatifs.
+    -->
+	<target name="checkDependencies" description="Vérification des répertoires du projet">
+		<echo message="Vérification des répertoires du projet..."/>
+
+		<!-- Vérification de l'existence du répertoire du code source principal -->
+		<condition property="src.available">
+			<available file="${src.dir}" type="dir"/>
+		</condition>
+
+		<!-- Vérification de l'existence du répertoire des tests (facultatif) -->
+		<condition property="test.available">
+			<available file="${test.dir}" type="dir"/>
+		</condition>
+
+		<!-- Arrête le processus si le code source principal est absent -->
+		<fail unless="src.available">Le répertoire requis '${src.dir}' est manquant.</fail>
+	</target>
+
+	<!--    Supprime les fichiers générés et recrée les répertoires requis.-->
+	<target name="clean" description="Nettoyage des répertoires de construction et de documentation">
+		<echo message="Nettoyage des répertoires de construction et de documentation..."/>
+		<delete dir="${build.dir}"/>
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${test.classes.dir}"/>
+		<mkdir dir="${jar.dir}"/>
+		<mkdir dir="${doc.dir}"/>
+		<mkdir dir="${report.dir}"/>
+		<echo message="Nettoyage terminé."/>
+	</target>
+
+	<!--  Compile le code source principal.-->
+	<target name="compile" description="Compilation du code source principal" depends="checkDependencies">
+		<echo message="Compilation du code source principal..."/>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeAntRuntime="false" source="21" target="21">
+			<classpath>
+			</classpath>
+		</javac>
+		<echo message="Compilation du code source principal terminée."/>
+	</target>
+
+	<!-- 
+        Compile le code source des tests en utilisant JUnit 5.
+    -->
+	<target name="compile-tests" description="Compilation des tests" depends="compile" if="test.available">
+		<echo message="Compilation du code source des tests..."/>
+		<javac srcdir="${test.dir}" destdir="${test.classes.dir}" includeAntRuntime="false" source="21" target="21">
+			<classpath>
+				<pathelement path="${classes.dir}"/>
+				<!-- Inclure JUnit 5 dans le classpath -->
+				<pathelement path="${junit.jar}"/>
+			</classpath>
+		</javac>
+		<echo message="Compilation du code source des tests terminée."/>
+	</target>
+
+	<!-- 
+        Exécute les tests JUnit 5 et génère un rapport.
+    -->
+	<target name="run-tests" description="Exécution des tests JUnit 5" depends="compile-tests" if="test.available">
+		<echo message="Exécution des tests JUnit 5 avec ConsoleLauncher..."/>
+		<java classname="org.junit.platform.console.ConsoleLauncher" fork="true" failonerror="true">
+			<classpath>
+				<pathelement path="${classes.dir}"/>
+				<pathelement path="${test.classes.dir}"/>
+				<pathelement path="${junit.jar}"/>
+			</classpath>
+			<!-- Recherche des tests dans le classpath -->
+			<arg value="--scan-class-path"/>
+			<arg value="${test.classes.dir}"/>
+		</java>
+		<echo message="Exécution des tests JUnit 5 terminée."/>
+	</target>
+
+	<!-- 
+        Génère la documentation pour le code source principal.
+    -->
+	<target name="doc" description="Générer la Javadoc" depends="compile" unless="doc.exists">
+		<echo message="Génération de la Javadoc..."/>
+		<mkdir dir="${doc.dir}"/>
+		<javadoc
+            sourcepath="${src.dir}"
+            destdir="${doc.dir}"
+            packagenames="tatsuya0924.test"
+            source="21"
+            encoding="UTF-8"
+            author="true"
+            version="true"
+            use="true"
+            failonerror="true">
+			<classpath>
+				<pathelement path="${classes.dir}"/>
+				<!-- Ajoutez des bibliothèques externes si nécessaire -->
+			</classpath>
+		</javadoc>
+		<echo message="Javadoc générée dans ${doc.dir}"/>
+	</target>
+
+	<!-- 
+        Crée un fichier JAR exécutable si une classe principale est présente.
+    -->
+	<target name="jar" description="Créer un fichier JAR" depends="compile">
+		<echo message="Création du fichier JAR..."/>
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/${jar.name}" basedir="${classes.dir}">
+			<!-- Si une classe principale est présente, spécifiez-la ici -->
+			<manifest>
+				<attribute name="Main-Class" value="fr.centrale.tp.note.ds_ochi_doucen.MainClass"/>
+			</manifest>
+		</jar>
+		<echo message="Fichier JAR créé à ${jar.dir}/${jar.name}"/>
+	</target>
+
+	
+	<target name="build" description="Processus complet de construction" depends="clean, compile, run-tests, jar, doc">
+		<echo message="Processus de construction terminé."/>
+	</target>
+
+	<!-- Cible par défaut -->
+	<target name="default" depends="build">
+		<echo message="La cible par défaut est terminée."/>
+	</target>
+</project>

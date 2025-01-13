@@ -46,7 +46,7 @@ jobs:
 
       # 5. Build and analyze
       - name: Build and analyze with coverage
-        working-directory: tp-note-2025-ds_ochi_doucen/src/main/java/fr/centrale/tp/note/ds_ochi_doucen 
+        working-directory: tp-note-2025-ds_ochi_doucen 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

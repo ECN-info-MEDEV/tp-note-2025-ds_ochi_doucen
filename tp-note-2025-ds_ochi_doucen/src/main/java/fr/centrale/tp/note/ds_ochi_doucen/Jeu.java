@@ -119,7 +119,7 @@ public class Jeu {
     /**
      * Change le tour entre les deux joueurs.
      */
-    private void changerTour() {
+    public void changerTour() {
         joueur1.setTour(!joueur1.isTour());
         joueur2.setTour(!joueur2.isTour());
     }
@@ -129,7 +129,7 @@ public class Jeu {
      *
      * @return Le joueur actuel.
      */
-    private Joueur getJoueurActuel() {
+    public Joueur getJoueurActuel() {
         return joueur1.isTour() ? joueur1 : joueur2;
     }
     
@@ -138,7 +138,7 @@ public class Jeu {
      * 
      * @return 
      */
-    private Joueur getJoueurOppose() {
+    public Joueur getJoueurOppose() {
         return joueur1.isTour() ? joueur2 : joueur1;
     }
 
@@ -148,7 +148,7 @@ public class Jeu {
      * @param message Le message à afficher à l'utilisateur.
      * @return La valeur entrée par l'utilisateur.
      */
-    private int demanderEntree(String message) {
+    public int demanderEntree(String message) {
         System.out.print(message);
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(isr);

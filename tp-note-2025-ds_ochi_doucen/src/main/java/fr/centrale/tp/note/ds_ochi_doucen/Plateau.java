@@ -1,7 +1,7 @@
 package fr.centrale.tp.note.ds_ochi_doucen;
 
 /**
- *
+ * Classe qui représente un plateau de jeu
  * @author mathi & woota
  */
 public class Plateau {
@@ -32,7 +32,7 @@ public class Plateau {
     public void placerPion(Joueur joueur, int ligne, int colonne) {
         //si la case est vide, on place un pion
         if (cases[ligne][colonne] == 0) {
-            cases[ligne][colonne] = joueur.couleur;
+            cases[ligne][colonne] = joueur.getCouleur();
             nbCasesRemplies++;
             joueur.tour = false;
         } else {
@@ -59,5 +59,23 @@ public class Plateau {
             System.out.print("-");
         }
     }
+
+    public int[][] getCases() {
+        return cases;
+    }
+
+    public void setCases(int[][] cases) {
+        this.cases = cases;
+    }
+
+    public int getNbCasesRemplies() {
+        return nbCasesRemplies;
+    }
+
+    public void setNbCasesRemplies(int nbCasesRemplies) {
+        this.nbCasesRemplies = nbCasesRemplies;
+    }
+    
+    
 
 }

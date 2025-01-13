@@ -2,7 +2,7 @@ package fr.centrale.tp.note.ds_ochi_doucen;
 
 /**
  * Classe qui représente un joueur
- * @author mathi & woota
+ * @author mathiwoota
  */
 public class Joueur {
     

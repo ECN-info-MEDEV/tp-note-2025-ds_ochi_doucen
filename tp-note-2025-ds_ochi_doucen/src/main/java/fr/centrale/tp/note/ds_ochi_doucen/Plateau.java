@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Classe qui représente un plateau de jeu
- * @author mathi & woota
+ * @author mathiwoota
  */
 public class Plateau {
 

@@ -24,11 +24,7 @@
 	<!-- Exemple : lib/junit-platform-console-standalone-1.10.2.jar -->
 	<property name="junit.jar"     value="lib/junit-platform-console-standalone-1.10.2.jar"/>
 
-	<!-- 
-        ==============================
-         2. Vérification des dossiers requis
-        ==============================
-        Arrête le processus si src/main/java est absent.
+	<!--Arrête le processus si src/main/java est absent.
         Les tests dans src/test/java sont facultatifs.
     -->
 	<target name="checkDependencies" description="Vérification des répertoires du projet">
@@ -74,7 +70,7 @@
 	<!-- 
         Compile le code source des tests en utilisant JUnit 5.
     -->
-	<target name="compile-tests" description="Compilation des tests" depends="compile" if="test.available">
+	<target name="compile-tests" description="Compilation des tests" depends="compile" if="ftp.note.ds_ochi_doucen.available">
 		<echo message="Compilation du code source des tests..."/>
 		<javac srcdir="${test.dir}" destdir="${test.classes.dir}" includeAntRuntime="false" source="21" target="21">
 			<classpath>
@@ -107,13 +103,13 @@
 	<!-- 
         Génère la documentation pour le code source principal.
     -->
-	<target name="doc" description="Générer la Javadoc" depends="compile" unless="doc.exists">
+	<target name="doc" description="Générer la Javadoc" depends="compile">
 		<echo message="Génération de la Javadoc..."/>
 		<mkdir dir="${doc.dir}"/>
 		<javadoc
             sourcepath="${src.dir}"
             destdir="${doc.dir}"
-            packagenames="tatsuya0924.test"
+            packagenames="fr.centrale.tp.note.ds_ochi_doucen"
             source="21"
             encoding="UTF-8"
             author="true"

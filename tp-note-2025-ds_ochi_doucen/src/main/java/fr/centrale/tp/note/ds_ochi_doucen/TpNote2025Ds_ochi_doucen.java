@@ -2,7 +2,7 @@ package fr.centrale.tp.note.ds_ochi_doucen;
 
 /**
  * classe principale
- * @author woota & mathi
+ * @author wootamathi
  */
 public class TpNote2025Ds_ochi_doucen {
 

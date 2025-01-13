@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 /**
  * Classe représentant le jeu principal.
  *
- * @author mathi & woota
+ * @author mathiwoota
  */
 public class Jeu {
     

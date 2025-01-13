@@ -2,7 +2,7 @@ package fr.centrale.tp.note.ds_ochi_doucen;
 
 /**
  * Classe qui représente une case du plateau de jeu
- * @author mathi & woota
+ * @author mathiwoota
  */
 public class Case {
     

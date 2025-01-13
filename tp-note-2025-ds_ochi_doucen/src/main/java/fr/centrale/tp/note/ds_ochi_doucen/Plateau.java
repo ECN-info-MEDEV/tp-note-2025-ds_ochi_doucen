@@ -25,22 +25,27 @@ public class Plateau {
         }
     }
     
+    
     /**
      * Fonction pour placer un pion si la case est vide
      * @param joueur
      * @param ligne
      * @param colonne 
      */
-    public void placerPion(Joueur joueur, int ligne, int colonne) {
+    public boolean placerPion(Joueur joueur, int ligne, int colonne) {
         //si la case est vide, on place un pion
         if (cases[ligne][colonne].getEtat() == 0) {
             cases[ligne][colonne].setEtat(joueur.getCouleur());
             nbCasesRemplies++;
             joueur.setTour(false);
+            return true;
         } else {
             System.out.println("case déjà occupée!");
+            return false;
         }
     }
+    
+    
     
     /**
      * Fonction pour verifier si un joueur peut jouer sur une case donnée
@@ -98,6 +103,13 @@ public class Plateau {
     }
     
     
+    
+    /**
+     * Fonction qui renvoie la liste des mouvements possibles pour un joueur donné
+     * @param couleurCourante
+     * @param couleurOpposee
+     * @return 
+     */
     public ArrayList<Case> mouvementPossible(int couleurCourante, int couleurOpposee){
         ArrayList<Case> res = new ArrayList<>();
         for (int i = 0; i < 8; i++){
@@ -131,6 +143,10 @@ public class Plateau {
             System.out.print("-");
         }
         System.out.println("");
+    }
+    
+    public int getScore(int couleurCourante){
+        return 0;
     }
     
     /**
